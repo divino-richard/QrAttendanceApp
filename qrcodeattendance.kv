@@ -1,0 +1,287 @@
+<ViewUserInfoPopup>:
+    size_hint: None, None
+    height: 500
+    width: 700 
+    title: "View User Info"
+
+    put_user_email: put_user_email
+
+    GridLayout:
+        padding: 25
+        cols: 1
+        Label:
+            id: view_userinfo_msg
+            size_hint_y: None
+            height: 35
+        BoxLayout:
+            size_hint_y: None
+            height: 35
+            TextInput:
+                id: put_user_email
+                hint_text: "Put user email"
+            Button:
+                text: "Get Info"
+                on_press: root.get_user_info()
+        BoxLayout:
+            GridLayout:
+                cols: 1
+                BoxLayout:
+                    Label:
+                        text: "First name: "
+                    Label:
+                        id: fname
+                        text: ""
+                BoxLayout:
+                    Label:
+                        text: "Last name: "
+                    Label:
+                        id: lname
+                        text: ""
+                BoxLayout:
+                    Label:
+                        text: "Adress: "
+                    Label:
+                        id: address
+                        text: ""
+                BoxLayout:
+                    Label:
+                        text: "Email: "
+                    Label:
+                        id: email
+                        text: ""
+
+            GridLayout:
+                cols: 1
+                Label:
+                    size_hint_y: None
+                    height: 35
+                    text: "Qr Code"
+                Image:
+                    id: qrcode
+
+
+<SetSchedPopup>:
+    size_hint: None, None
+    height: 350
+    width: 300 
+    title: "Set Time Schedule for Today"
+    
+    time_in_start: time_in_start
+    time_in_end: time_in_end
+    time_out_start: time_out_start
+    time_out_end: time_out_end
+
+    GridLayout:
+        cols: 1
+        spacing: 10
+        padding: 15
+
+        Label:
+            id: set_time_sched_msg
+            text: ""
+            size_hint_y: None
+            height: 25
+
+        BoxLayout:
+            Label:
+                text: "Time in start: "
+            TextInput:
+                id: time_in_start
+                hint_text: "HH:MM"
+
+        BoxLayout:
+            Label:
+                text: "Time in end: "
+            TextInput:
+                id: time_in_end
+                hint_text: "HH:MM"
+
+        BoxLayout:
+            Label:
+                text: "Time out start: "
+            TextInput:
+                id: time_out_start
+                hint_text: "HH:MM"
+
+        BoxLayout:
+            Label:
+                text: "Time out end: "
+            TextInput:
+                id: time_out_end
+                hint_text: "HH:MM"
+
+        Button:
+            text: "Set Schedule"
+            on_press: root.set_time_sched()
+
+<MainLayout>
+    fname: fname
+    lname: lname
+    address: address
+    email: email
+    
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: "window_bg.jpg"
+
+    GridLayout:
+        cols: 2
+        size: root.width, root.height
+        padding: (20, 20)
+
+        GridLayout:
+            cols: 1
+            BoxLayout:
+                orientation: "vertical"
+                GridLayout:
+                    cols: 1
+                    padding: (0, 25)
+
+                    Label:
+                        text: "(Today's date)"
+                        font_size: 13
+                    Label: 
+                        id: date_today
+                        text: ""
+                        font_size: 17
+                    Label:
+                        text: "(Current time)"
+                        font_size: 13
+                    Label:
+                        id: current_time
+                        text: ""
+                        font_size: 40
+
+                BoxLayout:
+                    padding: (10, 0)
+                    spacing: 25
+                    size_hint_y: None
+                    height: 35
+
+                    Button:
+                        id: set_timesched_btn
+                        text: "Set Time Schedule"
+                        on_release: root.open_timesched_popup()
+                    Button:
+                        text: "View User Info"
+                        on_release: root.open_userview_popup()
+                GridLayout:
+                    cols: 1
+                    padding: (0, 25)
+                    size_hint_y: None
+                    height: 100
+                    BoxLayout:
+                        padding: (10, 0)
+                        Label:
+                            text: "Time In: "
+                        Label:
+                            id: time_in_start_end
+                            text: ""
+                    BoxLayout:
+                        padding: (10, 0)
+                        Label:
+                            text: "Time Out: "
+                        Label:
+                            id: time_out_start_end
+                            text: ""
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: (50, 0) 
+                spacing: 10
+                Label:
+                    text: "Add User Form"
+                    font_size: 30
+                TextInput:
+                    id: fname
+                    multiline: False
+                    hint_text: "First Name"
+                    font_size: 18
+                    padding: (10, self.height / 2.0 - (self.line_height / 2.0) * len(self._lines))
+                TextInput:
+                    id: lname
+                    multiline: False
+                    hint_text: "Last Name"
+                    font_size: 18
+                    padding: (10, self.height / 2.0 - (self.line_height / 2.0) * len(self._lines))
+                TextInput:
+                    id: address
+                    multiline: False
+                    hint_text: "Address"
+                    font_size: 18
+                    padding: (10, self.height / 2.0 - (self.line_height / 2.0) * len(self._lines))
+                TextInput:
+                    id: email
+                    multiline: False
+                    hint_text: "Email"
+                    font_size:18
+                    padding: (10, self.height / 2.0 - (self.line_height / 2.0) * len(self._lines))
+                Button:
+                    on_press: root.add_user()
+                    text: "Add Person"
+                    font_size: 18
+                    background_color:(150/255, 150/255, 150/255, .7)
+                Label:
+                    id: form_msg
+                    text: ""
+                    font_size: 18
+        
+        GridLayout: 
+            cols: 1
+            GridLayout:
+                cols: 1
+                padding: (20, 20)
+                canvas.before:
+                    Color:
+                        rgba: (0,0,0,.2)
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Image:
+                    id: img_renderer
+            GridLayout:
+                cols: 1
+                Label:
+                    id: scan_status_msg
+                    color: "white"
+                    text:""
+                    font_size: 20
+                    canvas.before:
+                        Color:
+                            rgba: (0,0,0,.3)
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+                BoxLayout:
+                    Label:
+                        text: "Full Name: "
+                        font_size: 20
+                    Label:
+                        id: full_name
+                        text: "Waiting"
+                        font_size: 20
+                BoxLayout:
+                    Label:
+                        text: "Time In:"
+                        font_size: 20
+                    Label:
+                        id: time_in
+                        text: "Waiting"
+                        font_size: 20
+                BoxLayout:
+                    Label:
+                        text: "Time out:"
+                        font_size: 20
+                    Label:
+                        id: time_out
+                        text: "Waiting"
+                        font_size: 20
+                    
+
+
+
+
+
+                    
